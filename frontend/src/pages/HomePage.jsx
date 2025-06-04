@@ -29,7 +29,7 @@ function HomePage() {
           <p>
             Мы предоставляем лучшие банкетные залы для ваших особенных мероприятий — от свадеб до корпоративов.
           </p>
-          <button onClick={() => navigate('/Dashboard')}>Перейти к залам</button>
+          <button onClick={() => navigate('/Dashboard')} >Перейти к залам</button>
         </main>
       )}
     </div>

@@ -72,6 +72,7 @@ header {
 }
 
 header:hover .fullName {
+  transition: 2000ms;
   opacity: 1;
 }
 
@@ -104,6 +105,36 @@ main.fade-in {
   background-color: #ffffff8b;
 }
 
+.notFound{
+  padding-top: 30%;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  font-family: monospace ;
+}
+
+.notFound button{
+  border: none;
+  color: black;
+  background-color: white;
+  margin-top: 30%;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.notFound button:hover{
+  transition: 2000ms;
+  padding: 10px 20px;
+  margin-top: 29%;
+  margin-left: 1%;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  box-shadow: -2px 2px 5px rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 8px;
+}
+
 p{
   padding: 20px 0;
   font-size: larger;
@@ -116,7 +147,7 @@ p{
 }
 /* Уже включённые ранее стили */
 
-button {
+.fade-in button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -128,7 +159,7 @@ button {
   transition: background 0.3s ease;
 }
 
-button:hover {
+.fade-in button:hover {
   transition: 2000ms;
   background-color: white;
   color: black;
@@ -148,7 +179,7 @@ button:hover {
     top: 80%;
   }
 
-  button {
+  .fade-in button {
     font-size: 14px;
     padding: 8px 16px;
   }

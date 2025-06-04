@@ -52,7 +52,7 @@ header {
 .shortName {
   transition: transform 0.6s ease;
   cursor: pointer;
-  animation: shortNameFade 1s ease forwards;
+  animation: shortNameFade 2s ease forwards;
 }
 
 @keyframes shortNameFade {

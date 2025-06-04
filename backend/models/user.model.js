@@ -23,7 +23,44 @@ const findUserByUsername = async (username) => {
   return result.rows[0];
 };
 
+
+const findDistrictsByName = async (name) => {
+  const result = await pool.query(
+    `SELECT * FROM districts WHERE name = $1`,
+    [name]
+  );
+
+  return result.rows[0]
+};
+
+
+const createDistrict = async (name) => {
+  // Проверка на наличие
+  const exists = await pool.query(
+    `SELECT * FROM districts WHERE name = $1`,
+    [name]
+  );
+
+  if (exists.rows.length > 0) {
+    throw new Error(`District "${name}" already exists`);
+  }
+
+  const result = await pool.query(
+    `INSERT INTO districts (name)
+     VALUES ($1) RETURNING *`,
+    [name]
+  );
+
+  return result.rows[0];
+};
+
+
+
+
+
 module.exports = {
   createUser,
   findUserByUsername,
+  createDistrict,
+  findDistrictsByName
 };

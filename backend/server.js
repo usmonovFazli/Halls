@@ -7,6 +7,7 @@ const app = express();
 const authRoutes = require('./routes/auth.routes');
 const hallRoutes = require('./routes/hall.routes');
 const bookingRoutes = require('./routes/booking.routes');
+const adminRoutes = require('./routes/admin.routes')
 
 
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/hall', hallRoutes);
 app.use('/booking', bookingRoutes);
+app.use('/admin' , adminRoutes)
 app.use(cors());
 
 

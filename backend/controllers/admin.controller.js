@@ -6,7 +6,7 @@ const districts = async (req, res) => {
     try {
         const { name } = req.body;
 
-        const existingName = await findDistrictsByName(name)
+        const existingName = await findDistrictsByName(name);
         if (existingName) return res.status(400).json({ message: 'Dstrict name already taken ' });
 
         const newDistrict = await createDistrict(req.body.name);
@@ -15,9 +15,22 @@ const districts = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
-    }
-}
+    };
+};
+
+const getAllUsersByAdmin = async (req , res) => {
+    try {
+        const getUsers = await pool.query(`
+            SELECT * FROM users    
+        `)
+        res.status(201).json({message: 'Here all users '});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: 'Internal server error'});       
+    };
+};
 
 module.exports ={
-    districts
+    districts,
+    getAllUsersByAdmin
 }

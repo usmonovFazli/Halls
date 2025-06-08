@@ -1,0 +1,44 @@
+/* Сброс отступов и коробки */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Общие теги */
+p {
+  padding: 20px 0;
+  font-size: larger;
+  font-weight: 700;
+}
+
+/* Стили по умолчанию для notFound */
+.notFound {
+  padding-top: 30%;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  font-family: monospace;
+}
+
+.notFound button {
+  border: none;
+  color: black;
+  background-color: white;
+  margin-top: 30%;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.notFound button:hover {
+  transition: 2000ms;
+  padding: 10px 20px;
+  margin-top: 29%;
+  margin-left: 1%;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  box-shadow: -2px 2px 5px rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 8px;
+}

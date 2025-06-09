@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { findDistrictsByName , createDistrict } = require('../models/user.model');
+const pool = require('../config/db');
 
 
 const districts = async (req, res) => {
@@ -18,17 +19,16 @@ const districts = async (req, res) => {
     };
 };
 
-const getAllUsersByAdmin = async (req , res) => {
-    try {
-        const getUsers = await pool.query(`
-            SELECT * FROM users    
-        `)
-        res.status(201).json({message: 'Here all users '});
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({message: 'Internal server error'});       
-    };
+const getAllUsersByAdmin = async (req, res) => {
+  try {
+    const result = await pool.query(`SELECT * FROM users`);
+    res.status(200).json(result.rows); // возвращаем реальные данные пользователей
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
+
 
 module.exports ={
     districts,

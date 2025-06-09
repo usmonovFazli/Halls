@@ -1,7 +1,7 @@
 import React from 'react';
 import HallList from '../components/Halls/HallList';
 
-const Dashboard = () => {
+const HallPage = () => {
   return (
     <div>
       <h1>Панель управления</h1>
@@ -18,4 +18,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default HallPage;

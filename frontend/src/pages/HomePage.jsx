@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import HallPage from './HallsPage';
 
 function HomePage() {
   const [showBackground, setShowBackground] = useState(false);
@@ -29,7 +29,7 @@ function HomePage() {
           <p>
             Мы предоставляем лучшие банкетные залы для ваших особенных мероприятий — от свадеб до корпоративов.
           </p>
-          <button onClick={() => navigate('/Dashboard')} >Перейти к залам</button>
+          <button onClick={() => navigate('/HallPage')} >Перейти к залам</button>
         </main>
       )}
     </div>

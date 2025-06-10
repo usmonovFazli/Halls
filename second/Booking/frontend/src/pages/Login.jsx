@@ -1,4 +1,4 @@
-// src/pages/Login.jsx
+// pages/Login.jsx
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     const success = await login(form.username, form.password);
-    if (success) navigate('/');
+    if (success) navigate('/Home');
   };
 
   return (

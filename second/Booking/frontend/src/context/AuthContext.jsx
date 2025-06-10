@@ -1,32 +1,41 @@
+// context/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getCurrentUser } from '../api/authApi';
+import * as authApi from '../api/authApi';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (token) {
-        try {
-          const userData = await getCurrentUser();
-          setUser(userData);
-        } catch (err) {
-          console.error('Ошибка получения пользователя:', err);
-          setUser(null);
-        }
+      try {
+        const userData = await authApi.getCurrentUser();
+        setUser(userData);
+      } catch (err) {
+        console.error('Ошибка получения пользователя:', err);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
-    fetchUser();
-  }, [token]);
 
-  const login = (token, userData) => {
-    localStorage.setItem('token', token);
-    setUser(userData);
+    const token = localStorage.getItem('token');
+    if (token) fetchUser();
+    else setLoading(false);
+  }, []);
+
+  const login = async (username, password) => {
+    try {
+      const data = await authApi.login({ username, password });
+      localStorage.setItem('token', data.token);
+      setUser(data.user);
+      return true;
+    } catch (err) {
+      console.error('Ошибка входа:', err);
+      return false;
+    }
   };
 
   const logout = () => {

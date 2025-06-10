@@ -9,7 +9,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 app.use(express.json()); // Для JSON
 app.use(express.urlencoded({ extended: true })); // Для form-data
 app.use(morgan('dev'));
@@ -18,7 +21,7 @@ app.use('/uploads', express.static('uploads')); // Доступ к изобра�
 // Маршруты
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/halls', require('./routes/hallRoutes'));
-app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use('/api/bookings', require('./routes/bookingRoutes')) ;
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/images', require('./routes/imageRoutes'));
 

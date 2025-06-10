@@ -58,3 +58,27 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Внутренняя ошибка сервера' });
   }
 };
+
+
+exports.getMe = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) return res.status(401).json({ message: 'Не авторизован' });
+
+    const user = await userModel.getById(userId);
+    if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      role: user.role,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone: user.phone
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};

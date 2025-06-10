@@ -28,7 +28,7 @@ function HelloPage() {
           <p>
             Мы предоставляем лучшие банкетные залы для ваших особенных мероприятий — от свадеб до корпоративов.
           </p>
-          <button onClick={() => navigate('/Home')} >Перейти к залам</button>
+          <button onClick={() => navigate('/Login')} >Перейти к залам</button>
         </main>
       )}
     </div>

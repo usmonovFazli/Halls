@@ -29,3 +29,5 @@ export const uploadHallImage = async (hallId, imageFile) => {
   });
   return res.data;
 };
+
+export default {getAllHalls , getHallById }

@@ -1,0 +1,186 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home-page-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url('/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  z-index: 0;
+}
+
+.home-page-container.show-bg::before {
+  opacity: 1;
+}
+
+.home-page-container * {
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  font-size: 40px;
+  text-transform: capitalize;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.shortName {
+  transition: transform 0.6s ease;
+  cursor: pointer;
+  animation: shortNameFade 2s ease forwards;
+}
+
+@keyframes shortNameFade {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fullName {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+header:hover .fullName {
+  transition: 2000ms;
+  opacity: 1;
+}
+
+.fullName span {
+  opacity: 0;
+  transform: translateY(20px);
+  display: inline-block;
+  animation: fadeInLetter 0.4s ease forwards;
+  animation-play-state: paused;
+  color: black;
+}
+
+header:hover .fullName span {
+  animation-play-state: running;
+}
+
+@keyframes fadeInLetter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main.fade-in {
+  margin-top: 15%;
+  border: 1px solid #44444466;
+  padding: 20px 10px;
+  text-align: center;
+  animation: fadeInMain 1.5s ease forwards;
+  opacity: 0;
+  color: black;
+  background-color: #ffffff8b;
+}
+
+.notFound{
+  padding-top: 30%;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  font-family: monospace ;
+}
+
+.notFound button{
+  border: none;
+  color: black;
+  background-color: white;
+  margin-top: 30%;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.notFound button:hover{
+  transition: 2000ms;
+  padding: 10px 20px;
+  margin-top: 29%;
+  margin-left: 1%;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  box-shadow: -2px 2px 5px rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+p{
+  padding: 20px 0;
+  font-size: larger;
+  font-weight: 700;
+}
+
+@keyframes fadeInMain {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Уже включённые ранее стили */
+
+.fade-in button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.fade-in button:hover {
+  transition: 2000ms;
+  background-color: white;
+  color: black;
+  margin-top: 19px;
+  margin-left: 2px;
+  box-shadow: -1px 1px 10px black;
+}
+
+/* Завершаем стили */
+@media (max-width: 768px) {
+  header {
+    font-size: 28px;
+    flex-direction: column;
+  }
+
+  .fullName {
+    top: 80%;
+  }
+
+  .fade-in button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

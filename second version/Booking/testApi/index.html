@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To’yxona</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        input,
+        button {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>To’yxona Frontend 🥳</h1>
+
+    <section>
+        <h2>🔐 Регистрация</h2>
+        <input id="regUsername" placeholder="Username" />
+        <input id="regPassword" placeholder="Password" type="password" />
+        <select id="regRole">
+            <option value="user">User</option>
+            <option value="owner">Owner</option>
+        </select>
+        <button onclick="register()">Зарегистрироваться</button>
+    </section>
+
+    <section>
+        <h2>🔑 Вход</h2>
+        <input id="loginUsername" placeholder="Username" />
+        <input id="loginPassword" placeholder="Password" type="password" />
+        <button onclick="login()">Войти</button>
+    </section>
+
+    <section>
+        <h2>🏛 Создать Тойхона (только Owner/Admin)</h2>
+        <input id="hallName" placeholder="Название" />
+        <input id="hallDistrict" placeholder="Район" />
+        <input id="hallAddress" placeholder="Адрес" />
+        <input id="hallCapacity" type="number" placeholder="Вместимость" />
+        <input id="hallPrice" type="number" placeholder="Цена за место" />
+        <input id="hallPhone" placeholder="Телефон" />
+        <button onclick="createHall()">Создать зал</button>
+    </section>
+
+    <section>
+        <h2>🎪 Список Тойхон</h2>
+        <button onclick="getHalls()">Показать все</button>
+        <div id="hallList"></div>
+    </section>
+
+    <section>
+        <h2>📅 Забронировать</h2>
+        <input id="bookingHallId" placeholder="ID зала" />
+        <input id="bookingDate" type="date" />
+        <input id="bookingGuests" type="number" placeholder="Гости" />
+        <input id="bookingName" placeholder="ФИО" />
+        <input id="bookingPhone" placeholder="Телефон" />
+        <button onclick="createBooking()">Забронировать</button>
+    </section>
+
+    <script>
+        const API = 'http://localhost:3223/api';
+        let token = null;
+
+        function setToken(t) {
+            token = t;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        }
+
+        async function register() {
+            const username = regUsername.value;
+            const password = regPassword.value;
+            const role = regRole.value;
+            try {
+                const res = await axios.post(`${API}/auth/register`, { username, password, role });
+                alert('✅ Зарегистрирован: ' + res.data.user.username);
+            } catch (err) {
+                alert('❌ Ошибка регистрации: ' + err.response.data.message);
+            }
+        }
+
+        async function login() {
+            const username = loginUsername.value;
+            const password = loginPassword.value;
+            try {
+                const res = await axios.post(`${API}/auth/login`, { username, password });
+                setToken(res.data.token);
+                alert('🔓 Вошли как: ' + res.data.user.username);
+            } catch (err) {
+                alert('❌ Ошибка входа: ' + (err.response?.data?.message || err.message || 'Неизвестная ошибка'));
+            }
+        }
+
+
+        async function createHall() {
+            try {
+                const data = {
+                    name: hallName.value,
+                    district: hallDistrict.value,
+                    address: hallAddress.value,
+                    capacity: +hallCapacity.value,
+                    price_per_seat: +hallPrice.value,
+                    phone: hallPhone.value
+                };
+                const res = await axios.post(`${API}/halls`, data);
+                alert('🎉 Зал создан: ' + res.data.name);
+            } catch (err) {
+                alert('❌ Ошибка: ' + err.response.data.message);
+            }
+        }
+
+        async function getHalls() {
+            try {
+                const res = await axios.get(`${API}/halls`);
+                const container = document.getElementById('hallList');
+                container.innerHTML = '';
+                res.data.forEach(hall => {
+                    const el = document.createElement('div');
+                    el.className = 'card';
+                    el.innerHTML = `
+            <strong>${hall.name}</strong> — ${hall.district}<br/>
+            Вместимость: ${hall.capacity}, Цена: ${hall.price_per_seat}<br/>
+            Статус: ${hall.status}
+          `;
+                    container.appendChild(el);
+                });
+            } catch (err) {
+                alert('❌ Ошибка получения залов');
+            }
+        }
+
+        async function createBooking() {
+            try {
+                const data = {
+                    hall_id: +bookingHallId.value,
+                    booking_date: bookingDate.value,
+                    guest_count: +bookingGuests.value,
+                    full_name: bookingName.value,
+                    phone: bookingPhone.value
+                };
+                const res = await axios.post(`${API}/bookings`, data);
+                alert('✅ Забронировано на ' + res.data.booking_date);
+            } catch (err) {
+                alert('❌ Ошибка бронирования: ' + err.response.data.message);
+            }
+        }
+    </script>
+</body>
+
+</html>

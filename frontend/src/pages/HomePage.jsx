@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HallPage from './HallsPage';
 
 function HomePage() {
   const [showBackground, setShowBackground] = useState(false);

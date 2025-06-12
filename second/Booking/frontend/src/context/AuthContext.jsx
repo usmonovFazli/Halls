@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const data = await authApi.login({ username, password });
-      localStorage.setItem('token', data.token);
+      sessionStorage.setItem('token', data.token);
       setUser(data.user);
       return true;
     } catch (err) {
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setUser(null);
   };
 

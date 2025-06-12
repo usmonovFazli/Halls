@@ -15,6 +15,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     const success = await login(form.username, form.password);
+
     if (success) navigate('/Home');
   };
 
@@ -26,8 +27,9 @@ const Login = () => {
         <input type="password" name="password" placeholder="Пароль" required onChange={handleChange} className="w-full border px-3 py-2 rounded" />
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full">Войти</button>
       </form>
+      <button onClick={() => navigate('./register')}>Register</button>
     </div>
   );
 };
-
+ф
 export default Login;
